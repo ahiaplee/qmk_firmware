@@ -7,7 +7,24 @@ static HSV SOLID_REACTIVE_SIMPLE_math(HSV hsv, uint16_t offset) {
 #            ifdef RGB_MATRIX_SOLID_REACTIVE_GRADIENT_MODE
     hsv.h = scale16by8(g_rgb_timer, qadd8(rgb_matrix_config.speed, 8) >> 4);
 #            endif
-    hsv.v = scale8(255 - offset, hsv.v);
+
+    // return original colour if offset is max
+    if(offset == 255){
+        return hsv;
+    }
+
+    // slowly lerp the colour back to the original
+    uint8_t temp_v  = scale16by8(g_rgb_timer, qadd8(rgb_matrix_config.speed, 8) >> 4);
+    hsv.h = lerp8by8(temp_v ,hsv.h, offset / 255);
+
+    // make pressed keys slightly brighter than the settings
+    uint8_t led_v = 255 - offset;
+
+    // clamp the value between min(255, v  * 1.5)
+    uint8_t upper_bound = qadd8(hsv.v, hsv.v / 2);
+    led_v = led_v > upper_bound ? upper_bound : led_v;
+    hsv.v = qadd8(hsv.v, led_v);
+
     return hsv;
 }
 
