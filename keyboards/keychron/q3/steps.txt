@@ -13,3 +13,7 @@ make keychron/q3/ansi:default
 qmk compile -kb keychron/q3/ansi -km via
 or
 make keychron/q3/ansi:via
+
+// If via folder missing
+cp keyboards/keychron/q3/ansi/keymaps/default/keymap.c keyboards/keychron/q3/ansi/keymaps/via/keymap.c
+echo VIA_ENABLE = yes > keyboards/keychron/q3/ansi/keymaps/via/rules.mk
