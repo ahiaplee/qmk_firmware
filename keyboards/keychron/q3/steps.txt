@@ -1,0 +1,15 @@
+python3 -m pip install --user qmk
+qmk setup
+
+// Compilation databse
+qmk generate-compilation-database -kb keychron/q3/ansi -km default
+
+// Non Via
+qmk compile -kb keychron/q3/ansi -km default
+or
+make keychron/q3/ansi:default
+
+// With Via
+qmk compile -kb keychron/q3/ansi -km via
+or
+make keychron/q3/ansi:via

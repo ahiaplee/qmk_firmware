@@ -17,8 +17,8 @@
         "command": false,
         "console": false,
         "extrakey": true,
-        "mousekey": true,
-        "nkro": true,
+        "mousekey": false,
+        "nkro": false,
         "rgb_matrix": true
     },
     "processor": "STM32L432",
